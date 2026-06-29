@@ -1,0 +1,765 @@
+
+ 
+ 
+/* =========================================
+   VARIABLES GLOBALES
+   ========================================= */
+:root {
+  --color-sidebar:       #776F4F;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.12);
+  --color-bg:            #F0EBE1;
+  --color-white:         #ffffff;
+  --color-card-border:   #d9d2c5;
+  --color-title:         #7B4A3C;
+  --color-text-main:     #2c2c2c;
+  --color-text-muted:    #888888;
+  --color-text-small:    #aaaaaa;
+ 
+  /* Botones de acción */
+  --color-btn-cyan:      #3ABFBF;
+  --color-btn-cyan-hover:#2fa5a5;
+  --color-btn-red:       #E05555;
+  --color-btn-red-hover: #c94444;
+  --color-btn-gray:      #e2ddd6;
+  --color-btn-gray-hover:#d0c9bf;
+ 
+  /* Tipografía */
+  --font-display:        'Playfair Display', serif;
+  --font-body:           'Lato', sans-serif;
+ 
+  /* Espacios y radios */
+  --sidebar-width:       280px;
+  --radius-card:         14px;
+  --radius-btn:          8px;
+  --transition:          0.25s ease;
+ 
+  /* Grid compartido entre cabecera y tarjetas de contacto:
+     [avatar] [nombre+email] [teléfono] [información] [acciones] */
+  --grid-cols:           52px 1fr 160px 160px 130px;
+}
+ 
+ 
+/* =========================================
+   RESET GENERAL
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  display: flex;
+  min-height: 100vh;
+}
+ 
+ 
+/* =========================================
+   BARRA LATERAL (SIDEBAR)
+   ========================================= */
+.sidebar {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  width: var(--sidebar-width);
+  min-width: 240px;
+  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+ 
+/* --- Encabezado del sidebar (logo + nombre) --- */
+.sidebar header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+ 
+.logo-circle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  border: 3px solid var(--color-white);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  letter-spacing: -2px;
+}
+ 
+.sidebar header h1 {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+ 
+/* --- Navegación --- */
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+ 
+.menu-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+ 
+.nav-link {
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 8px;
+  font-size: 0.93rem;
+  border-radius: var(--radius-btn);
+  transition: background var(--transition), padding-left var(--transition);
+}
+ 
+.nav-link i {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+ 
+/* Icono secundario a la derecha (side-icon) */
+.nav-link .side-icon {
+  margin-left: auto;
+  opacity: 0.6;
+  font-size: 0.85rem;
+  width: auto;
+}
+ 
+.nav-link:hover {
+  background-color: var(--color-sidebar-hover);
+  padding-left: 14px;
+}
+ 
+.nav-link.active {
+  font-weight: 700;
+  border-left: 3px solid var(--color-white);
+  padding-left: 12px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+ 
+ 
+/* =========================================
+   CONTENIDO PRINCIPAL
+   ========================================= */
+.main-content {
+  flex: 1;
+  padding: 50px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background-color: var(--color-bg);
+}
+ 
+/* --- Encabezado del contenido --- */
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+ 
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--color-title);
+  letter-spacing: 0.3px;
+}
+ 
+/* Botón principal "Agregar Nuevo Contacto" */
+.btn-add {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 11px 22px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background var(--transition), transform var(--transition);
+}
+ 
+.btn-add:hover {
+  background-color: var(--color-sidebar-dark, #5f5940);
+  transform: translateY(-1px);
+}
+ 
+ 
+/* =========================================
+   SECCIÓN DE CONTACTOS
+   ========================================= */
+.contacts-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+ 
+/* --- Fila de etiquetas de columna (cabecera de tabla) --- */
+.table-labels {
+  display: grid;
+  grid-template-columns: var(--grid-cols);
+  align-items: center;
+  padding: 14px 28px;
+  gap: 12px;
+  background-color: #f8f5f0;
+  border-bottom: 1px solid var(--color-card-border);
+}
+ 
+/* Primera celda vacía (ocupa el lugar del avatar) */
+.table-labels span:first-child {
+  visibility: hidden;
+}
+ 
+.table-labels span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+ 
+/* --- Lista de contactos --- */
+.contacts-list {
+  list-style: none;
+}
+ 
+.contacts-list li {
+  border-bottom: 1px solid #f0ece5;
+}
+ 
+.contacts-list li:last-child {
+  border-bottom: none;
+}
+ 
+/* --- Tarjeta individual de contacto --- */
+.contact-card {
+  display: grid;
+  grid-template-columns: var(--grid-cols);
+  align-items: center;
+  padding: 16px 28px;
+  gap: 12px;
+  transition: background var(--transition);
+}
+ 
+.contact-card:hover {
+  background-color: #faf8f4;
+}
+ 
+/* Avatar (ícono de usuario) */
+.avatar {
+  font-size: 2.4rem;
+  color: var(--color-sidebar);
+  opacity: 0.75;
+  justify-self: center;
+}
+ 
+/* Nombre + email agrupados */
+.info-personal {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+ 
+.info-personal strong {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+ 
+.info-personal small {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+ 
+/* Teléfono */
+.info-phone {
+  font-size: 0.88rem;
+  color: var(--color-text-main);
+  font-weight: 400;
+}
+ 
+/* Botones secundarios (engranaje y estrella) */
+.info-extra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+/* Botones de acción (editar y eliminar) */
+.info-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+ 
+/* =========================================
+   BOTONES DE ACCIÓN
+   ========================================= */
+ 
+/* Base compartida */
+.btn-gray,
+.btn-cyan,
+.btn-red {
+  border: none;
+  border-radius: var(--radius-btn);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+ 
+/* Botón gris (configuración / favorito) */
+.btn-gray {
+  background-color: var(--color-btn-gray);
+  color: var(--color-text-muted);
+}
+ 
+.btn-gray:hover {
+  background-color: var(--color-btn-gray-hover);
+  transform: translateY(-1px);
+}
+ 
+/* Botón cyan (editar) */
+.btn-cyan {
+  background-color: var(--color-btn-cyan);
+  color: var(--color-white);
+}
+ 
+.btn-cyan:hover {
+  background-color: var(--color-btn-cyan-hover);
+  transform: translateY(-1px);
+}
+ 
+/* Botón rojo (eliminar) */
+.btn-red {
+  background-color: var(--color-btn-red);
+  color: var(--color-white);
+}
+ 
+.btn-red:hover {
+  background-color: var(--color-btn-red-hover);
+  transform: translateY(-1px);
+}
+ 
+ 
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 960px) {
+  body { flex-direction: column; }
+ 
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    padding: 16px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+ 
+  .sidebar header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+ 
+  .logo-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+ 
+  .sidebar header h1 { font-size: 1.1rem; }
+ 
+  .main-content { padding: 24px 16px; }
+  .panel-title  { font-size: 1.5rem; }
+ 
+  .table-labels,
+  .contact-card {
+    grid-template-columns: 1fr;
+    padding: 12px 16px;
+  }
+ 
+  .table-labels { display: none; } /* Se ocultan las etiquetas en móvil */
+ 
+  .contact-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+ 
+  .info-actions,
+  .info-extra { margin-left: auto; }
+}
+
+
+/* ==========================================================================
+   INTEGRACIÓN DE FILTROS Y ALERTAS - DATACONNECT (SINTONÍA CON EL DISEÑO)
+   ========================================================================== */
+
+/* --- Contenedor de la Barra de Herramientas Semántica --- */
+.filtros-control {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  padding: 16px 28px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+/* Caja de texto para buscar contacto */
+.filtros-control input[type="text"] {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-text-main);
+  background-color: #faf8f4; /* Tono sutil extraído de tus hovers */
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 10px 16px;
+  outline: none;
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.filtros-control input[type="text"]:focus {
+  border-color: var(--color-sidebar);
+  background-color: var(--color-white);
+}
+
+/* Etiqueta del organizador "Organizar:" */
+.filtros-control label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Modificamos los botones tipo enlace del buscador para que usen tu estructura */
+.filtros-control .btn-cyan,
+.filtros-control .btn-gray {
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  width: auto;          /* Sobrescribe el ancho fijo de 36px para que quepa el texto */
+  height: 38px;
+  padding: 0 18px;
+}
+
+/* Botón de limpiar específico */
+.filtros-control .btn-gray {
+  background-color: var(--color-btn-gray);
+  color: var(--color-title); /* Contraste elegante con tu color café/terroso */
+}
+
+
+/* --- Contenedor y Mensajes de Alerta Nativos (Indicador 5) --- */
+.alertas-globales {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alerta {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: var(--radius-btn);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+/* Estado de Error (Campos vacíos / Formato inválido) */
+.alerta.error {
+  background-color: #fdf3f3;
+  color: var(--color-btn-red-hover);
+  border-left: 4px solid var(--color-btn-red);
+}
+
+/* Estado de Éxito (Guardado o Actualizado) */
+.alerta.exito {
+  background-color: #f1fbf7;
+  color: var(--color-btn-cyan-hover);
+  border-left: 4px solid var(--color-btn-cyan);
+}
+
+
+
+
+
+
+/* =========================================
+   BARRA DE BÚSQUEDA Y ORDENAMIENTO (A-Z)
+   ========================================= */
+.search-sort-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 14px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 500px;
+}
+
+.search-input-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container i {
+  position: absolute;
+  left: 14px;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.search-input-container input {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 10px 16px 10px 40px;
+  outline: none;
+  width: 100%;
+  transition: border-color var(--transition);
+}
+
+.search-input-container input:focus {
+  border-color: var(--color-sidebar);
+}
+
+.btn-clear-search {
+  color: var(--color-error);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.sort-actions-group {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-sort-az {
+  background-color: var(--color-input-bg);
+  color: var(--color-sidebar);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 10px 18px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--transition);
+  cursor: pointer;
+}
+
+.btn-sort-az:hover {
+  background-color: var(--color-card-border);
+}
+
+/*============================================================================*/
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Ajuste Responsivo para Filtros (Móvil) --- */
+@media (max-width: 960px) {
+  .filtros-control {
+    padding: 16px;
+  }
+  
+  .filtros-control form {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  
+  .filtros-control p {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .filtros-control .btn-cyan,
+  .filtros-control .btn-gray {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+
+
+/* ===== MODAL DE ELIMINACIÓN ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background-color: #f9f6ed;
+    border-radius: 12px;
+    padding: 30px 40px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: #776F4F;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.modal-box p {
+    color: #555;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.modal-btn-cancel {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.modal-btn-cancel:hover {
+    background-color: #ccc;
+}
+
+.modal-btn-delete {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.modal-btn-delete:hover {
+    background-color: #b71c1c;
+    transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-red i {
+    font-size: 0.9rem;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn-red {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.btn-red:hover {
+    transform: scale(1.05);
+}

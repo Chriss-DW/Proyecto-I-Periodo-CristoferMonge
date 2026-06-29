@@ -1,0 +1,315 @@
+
+    /* =========================================
+       RESET & VARIABLES GLOBALES
+       ========================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+ 
+    :root {
+      --color-sidebar:      #776F4F;
+      --color-sidebar-dark: #5f5940;
+      --color-bg:           #F0EBE1;
+      --color-white:        #ffffff;
+      --color-card-border:  #d9d2c5;
+      --color-title:        #7B4A3C;
+      --color-text-main:    #2c2c2c;
+      --color-text-muted:   #888888;
+      --color-avatar-bg:    #ccc;
+      --radius-card:        18px;
+      --radius-stat:        14px;
+      --font-display:       'Playfair Display', serif;
+      --font-body:          'Lato', sans-serif;
+      --sidebar-width:      280px;
+      --transition:         0.25s ease;
+    }
+ 
+    /* =========================================
+       LAYOUT PRINCIPAL
+       ========================================= */
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text-main);
+      display: flex;
+      min-height: 100vh;
+    }
+ 
+    /* =========================================
+       BARRA LATERAL (SIDEBAR)
+       ========================================= */
+    .sidebar {
+      background-color: var(--color-sidebar);
+      color: var(--color-white);
+      width: var(--sidebar-width);
+      min-width: 240px;
+      padding: 40px 25px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 14px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+ 
+    /* Logo y nombre de marca */
+    .sidebar header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+ 
+    .logo-circle {
+      font-size: 2.2rem;
+      font-weight: 900;
+      border: 3px solid var(--color-white);
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      letter-spacing: -2px;
+      font-family: var(--font-display);
+    }
+ 
+    .sidebar header h1 {
+      font-family: var(--font-body);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+ 
+    /* Navegación principal del sidebar */
+    .sidebar nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+ 
+    .menu-label {
+      font-size: 0.68rem;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 28px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+ 
+    .nav-link {
+      color: var(--color-white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 8px;
+      font-size: 0.93rem;
+      border-radius: 8px;
+      transition: background var(--transition), padding-left var(--transition);
+    }
+ 
+    .nav-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+ 
+    .nav-link:hover {
+      background-color: rgba(255,255,255,0.12);
+      padding-left: 14px;
+    }
+ 
+    .nav-link.active {
+      font-weight: 700;
+      border-left: 3px solid var(--color-white);
+      padding-left: 12px;
+      background-color: rgba(255,255,255,0.08);
+    }
+ 
+    /* Separador visual antes de Herramientas */
+    .sidebar-spacer {
+      flex: 1;
+    }
+ 
+    /* =========================================
+       ÁREA DE CONTENIDO PRINCIPAL
+       ========================================= */
+    main {
+      flex: 1;
+      padding: 50px 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      background-color: var(--color-bg);
+    }
+ 
+    /* Título principal */
+    main > header h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--color-title);
+      letter-spacing: 0.3px;
+    }
+ 
+    /* =========================================
+       TARJETA DE CONTACTOS NUEVOS
+       ========================================= */
+    .card-contacts {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-card);
+      padding: 28px 32px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+ 
+    .card-contacts header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+ 
+    .card-contacts header h3 {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      letter-spacing: 0.2px;
+    }
+ 
+    /* Grid de 2 columnas para los contactos */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 40px;
+      list-style: none;
+    }
+ 
+    /* Cada ítem de contacto */
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0ece5;
+    }
+ 
+    .contact-item:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+ 
+    /* Avatar circular */
+    .contact-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: var(--color-avatar-bg);
+      flex-shrink: 0;
+      /* Avatares generados con iniciales como fallback */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-white);
+    }
+ 
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+ 
+    .contact-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+ 
+    .contact-email {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+ 
+    /* =========================================
+       FILA DE TARJETAS ESTADÍSTICAS
+       ========================================= */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+ 
+    .stat-card {
+      background-color: var(--color-white);
+      border: 1px solid var(--color-card-border);
+      border-radius: var(--radius-stat);
+      padding: 28px 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .stat-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      letter-spacing: 0.1px;
+    }
+ 
+    .stat-value {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: var(--color-text-main);
+      line-height: 1.1;
+    }
+ 
+    .stat-desc {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      margin-top: 2px;
+    }
+ 
+    /* =========================================
+       PALETA DE COLORES PARA AVATARES
+       ========================================= */
+    .av-1  { background-color: #9E7B5B; }
+    .av-2  { background-color: #4A5568; }
+    .av-3  { background-color: #6B7280; }
+    .av-4  { background-color: #8B6A5A; }
+    .av-5  { background-color: #6D7B68; }
+    .av-6  { background-color: #A07860; }
+    .av-7  { background-color: #5A6880; }
+    .av-8  { background-color: #7A6E5A; }
+    .av-9  { background-color: #8A7B6B; }
+    .av-10 { background-color: #6B7B70; }
+ 
+    /* =========================================
+       RESPONSIVE BÁSICO
+       ========================================= */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+ 
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        padding: 16px 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+        min-width: unset;
+      }
+ 
+      .sidebar header { margin-bottom: 0; text-align: left; }
+      .logo-circle { width: 48px; height: 48px; font-size: 1.3rem; margin: 0 8px 0 0; }
+      .sidebar header h1 { font-size: 1.1rem; }
+ 
+      main { padding: 24px 20px; }
+      main > header h2 { font-size: 1.5rem; }
+ 
+      .contacts-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+    }
+ 

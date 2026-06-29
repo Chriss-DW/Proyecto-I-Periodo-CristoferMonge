@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- Página para editar contactos existentes en DataConnect -->
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Contacto - DataConnect</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/editar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- ========================================
+         BARRA LATERAL: Menú de navegación
+         ======================================== -->
+    <aside class="sidebar">
+        <!-- Logo y título de la aplicación -->
+        <header>
+            <strong class="logo-circle">DC</strong>
+            <h1>DataConnect</h1>
+        </header>
+        
+        <!-- Opciones del menú principal -->
+        <nav>
+            <p class="menu-label">GESTIÓN</p>
+            <a href="{{ url_for('principal') }}" class="nav-link">
+                <i class="fas fa-th-large"></i> Menú Principal
+            </a>
+            <a href="{{ url_for('Crear_contactos') }}" class="nav-link">
+                <i class="fas fa-user-plus"></i> Crear contactos
+            </a>
+            
+            <p class="menu-label">HERRAMIENTAS</p>
+            <a href="{{ url_for('estadisticas') }}" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Estadísticas
+            </a>
+            <a href="{{ url_for('login') }}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- ========================================
+         CONTENIDO PRINCIPAL: Formulario de edición
+         ======================================== -->
+    <main class="main-content">
+        <section class="center-container">
+            <h2 class="panel-title">Panel Principal: Editar Contactos</h2>
+            
+            <!-- Formulario para actualizar contacto -->
+            <!-- Envía a actualizar_contacto con el ID del contacto -->
+            <!-- onsubmit: valida antes de enviar -->
+            <form class="edit-card" action="{{ url_for('actualizar_contacto', id_fila=id_fila) }}" method="POST" onsubmit="return validarYConfirmarEdicion();">
+                
+                <!-- Cabecera del formulario -->
+                <header class="edit-card-header">
+                    <strong class="logo-small" style="background: white; color: #776F4F; padding: 5px 10px; border-radius: 50%; font-weight: bold;">DC</strong>
+                    <h3 style="color: white; margin-left: 10px; font-size: 2rem;">DataConnect</h3>
+                </header>
+                
+                <!-- Campos del formulario con datos precargados -->
+                <!-- Fila: Nombre y Teléfono -->
+                <section class="field-row" style="display: flex; gap: 15px;">
+                    <label style="flex: 1;">
+                        <span>Editar Nombre Completo</span>
+                        <input type="text" name="nombre" id="edit_nombre" value="{{ contacto.nombre_completo }}" placeholder="Escriba el nombre completo" required>
+                    </label>
+                    <label style="flex: 1;">
+                        <span>Editar Teléfono</span>
+                        <input type="tel" name="telefono" id="edit_telefono" value="{{ contacto.telefono }}" placeholder="Número de teléfono" required>
+                    </label>
+                </section>
+                
+                <!-- Correo Electrónico -->
+                <label>
+                    <span>Editar Correo Electrónico</span>
+                    <input type="email" name="correo" id="edit_correo" value="{{ contacto.correo }}" placeholder="ejemplo@gmail.com" required>
+                </label>
+                
+                <!-- Etiqueta Laboral (select con selección condicional) -->
+                <label>
+                    <span>Editar Etiqueta Laboral</span>
+                    <select name="categoria" required>
+                        <option value="Familia" {% if contacto.categoria == 'Familia' %}selected{% endif %}>Familia</option>
+                        <option value="Trabajo" {% if contacto.categoria == 'Trabajo' %}selected{% endif %}>Trabajo</option>
+                        <option value="Amigos" {% if contacto.categoria == 'Amigos' %}selected{% endif %}>Amigos</option>
+                        <option value="Otro" {% if contacto.categoria == 'Otro' or not contacto.categoria %}selected{% endif %}>Otro</option>
+                    </select>
+                </label>
+                
+                <!-- Dirección Domiciliaria -->
+                <label>
+                    <span>Editar Dirección Domiciliaria</span>
+                    <input type="text" name="direccion" id="edit_direccion" value="{{ contacto.direccion }}" placeholder="Modifique el domicilio residencial" required>
+                </label>
+                
+                <!-- Botones: Cancelar y Guardar -->
+                <footer class="edit-actions">
+                    <a href="{{ url_for('principal') }}" class="btn-cancel" style="text-decoration: none;">Cancelar</a>
+                    <button type="submit" class="btn-update">Guardar Contacto</button>
+                </footer>
+            </form>
+        </section>
+    </main>
+    
+    <!-- JavaScript para validaciones -->
+    <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+</body>
+</html>

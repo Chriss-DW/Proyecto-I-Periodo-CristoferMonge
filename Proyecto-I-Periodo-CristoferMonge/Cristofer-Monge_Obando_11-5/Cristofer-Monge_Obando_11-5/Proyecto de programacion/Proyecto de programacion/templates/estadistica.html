@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataConnect – Panel Principal: Estadísticas</title>
+    
+    <!-- Estilos y fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estadisticas.css') }}">
+</head>
+<body>
+    <!-- BARRA LATERAL DE NAVEGACIÓN -->
+    <aside class="sidebar">
+        <header>
+            <figure class="logo-circle" aria-label="Logo DataConnect">DC</figure> <!-- Logo -->
+            <h1>DataConnect</h1> <!-- Nombre de la app -->
+        </header>
+        <nav>
+            <!-- Menú de navegación -->
+            <p class="menu-label">GESTIÓN</p>
+            <a href="{{ url_for('principal') }}" class="nav-link">
+                <i class="fas fa-th-large"></i> Menú Principal
+            </a>
+            <a href="{{ url_for('Crear_contactos') }}" class="nav-link">
+                <i class="fas fa-user-plus"></i> Crear contactos
+            </a>
+            
+            <p class="menu-label">HERRAMIENTAS</p>
+            <a href="{{ url_for('estadisticas') }}" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Estadísticas <!-- Página actual -->
+            </a>
+            <a href="{{ url_for('login') }}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <!-- Título de la página -->
+        <header>
+            <h2>Panel Principal: Estadisticas</h2>
+        </header>
+
+        <!-- SECCIÓN: ÚLTIMOS CONTACTOS REGISTRADOS -->
+        <section class="card-contacts" aria-labelledby="contactos-titulo">
+            <header>
+                <h3 id="contactos-titulo">Últimos Contactos Registrados</h3>
+            </header>
+
+            <!-- Lista de contactos -->
+            <ul class="contacts-grid" role="list">
+                {% if contactos_recientes %}
+                    {% for contacto in contactos_recientes %}
+                    <li class="contact-item">
+                        <!-- Avatar con primera letra del nombre -->
+                        <figure class="contact-avatar av-1" role="img" aria-label="Avatar">{{ contacto.nombre[0] | upper }}</figure>
+                        
+                        <!-- Información del contacto -->
+                        <address class="contact-info">
+                            <strong class="contact-name">{{ contacto.nombre }} {% if contacto.apellido and contacto.apellido != 'None' %}{{ contacto.apellido }}{% endif %}</strong>
+                            <span class="contact-email">{{ contacto.correo }}</span>
+                        </address>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <!-- Mensaje cuando no hay contactos -->
+                    <p style="padding: 20px; color: #776F4F;">No hay contactos guardados para generar estadísticas todavía.</p>
+                {% endif %}
+            </ul>
+        </section>
+
+        <!-- SECCIÓN: ESTADÍSTICAS (dos tarjetas) -->
+        <section class="stats-row" aria-label="Resumen de estadísticas">
+            <!-- Tarjeta 1: Total de contactos -->
+            <article class="stat-card" aria-labelledby="stat-totales">
+                <h4 id="stat-totales">Contactos Totales</h4>
+                <strong class="stat-value">{{ total }} registrados</strong>
+                <p class="stat-desc">Incremento exponencial de contactos</p>
+            </article>
+
+            <!-- Tarjeta 2: Contactos favoritos -->
+            <article class="stat-card" aria-labelledby="stat-nuevos">
+                <h4 id="stat-nuevos">Contactos Favoritos</h4>
+                <strong class="stat-value">{{ favorites }} destacados</strong>
+                <p class="stat-desc">Total de contactos preferenciales</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

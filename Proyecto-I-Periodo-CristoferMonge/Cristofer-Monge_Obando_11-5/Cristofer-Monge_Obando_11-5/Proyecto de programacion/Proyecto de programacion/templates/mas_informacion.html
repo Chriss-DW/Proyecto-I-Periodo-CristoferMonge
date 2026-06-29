@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataConnect - Reporte Detallado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mas_informacion.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <header>
+            <strong class="logo-circle">DC</strong>
+            <h1>DataConnect</h1>
+        </header>
+        <nav>
+            <p class="menu-label">GESTIÓN</p>
+            <a href="{{ url_for('principal') }}" class="nav-link">
+                <i class="fas fa-th-large"></i> Menú Principal
+            </a>
+            <a href="{{ url_for('Crear_contactos') }}" class="nav-link">
+                <i class="fas fa-user-plus"></i> Crear contactos
+            </a>
+            <a href="{{ url_for('editar_usuario', id_fila=id_fila) }}" class="nav-link">
+                <i class="fas fa-user-edit"></i> Editar Usuario
+            </a>
+            <p class="menu-label">HERRAMIENTAS</p>
+            <a href="{{ url_for('estadisticas') }}" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Estadísticas
+            </a>
+            <a href="{{ url_for('login') }}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>                                                                                                                                                                                                                                                                                                                                         
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="content-header">
+            <h2 class="panel-title">Reporte Detallado del Contacto</h2>
+            <a href="{{ url_for('principal') }}" class="btn-add" style="text-decoration: none;">Volver al Menú</a>
+        </header>
+        <article class="detail-card">
+            <header class="detail-card-header">
+                <i class="fas fa-user-circle detail-avatar"></i>
+                <section class="detail-header-info">
+                    <h3>{{ contacto.nombre }} {% if contacto.apellido and contacto.apellido != 'None' %}{{ contacto.apellido }}{% endif %}</h3>
+                    <span class="detail-badge">{{ contacto.categoria }}</span>
+                </section>
+                <p class="detail-fav-status">
+                    {% if contacto.favorito == 'Sí' %}
+                        <i class="fas fa-star fav-active" style="color: #f1c40f;" title="Contacto Favorito"></i>
+                    {% else %}
+                        <i class="far fa-star fav-inactive" title="Contacto Normal"></i>
+                    {% endif %}
+                </p>
+            </header>
+            <section class="detail-grid-info">
+                <p class="detail-field">
+                    <span class="field-label"><i class="fas fa-phone"></i> Número de Teléfono</span>
+                    <strong class="field-value">+506 {{ contacto.telefono }}</strong>
+                </p>
+                <p class="detail-field">
+                    <span class="field-label"><i class="fas fa-envelope"></i> Correo Electrónico</span>
+                    <strong class="field-value">{{ contacto.correo }}</strong>
+                </p>
+                <p class="detail-field">
+                    <span class="field-label"><i class="fas fa-home"></i> Dirección Domiciliaria</span>
+                    <strong class="field-value">
+                        {% if contacto.direccion and contacto.direccion != 'None' %}
+                            {{ contacto.direccion }}
+                        {% else %}
+                            No especificada
+                        {% endif %}
+                    </strong>
+                </p>
+                <p class="detail-field">
+                    <span class="field-label"><i class="fas fa-info-circle"></i> Tipo de Contacto</span>
+                    <strong class="field-value">
+                        {% if contacto.favorito == 'Sí' %}
+                            Destacado en Favoritos
+                        {% else %}
+                            Registro Regular
+                        {% endif %}
+                    </strong>
+                </p>
+                <p class="detail-field status-field">
+                    <span class="field-label"><i class="fas fa-signal"></i> Estado de Disponibilidad</span>
+                    <strong class="field-value availability-online">
+                        <span class="dot-online"></span> {{ contacto.estado if contacto.estado else 'Conectado' }}
+                    </strong>
+                </p>
+            </section>
+            <menu class="detail-card-footer" style="list-style: none; display: flex; padding: 0; gap: 10px;">
+                <li>
+                    <a href="{{ url_for('toggle_favorito', id_fila=id_fila, origen='mas_info') }}" class="btn-gray" title="Alternar Favorito">
+                        <i class="fas fa-star"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('editar_usuario', id_fila=id_fila) }}" class="btn-cyan" title="Modificar Datos">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('eliminar_contacto', id_fila=id_fila) }}" 
+                       class="btn-red" 
+                       title="Eliminar del Sistema" 
+                       onclick="return confirm('¿Está seguro/a que desea eliminar al contacto? Esta acción no puede ser revertida.');">
+                        <i class="fas fa-user-minus"></i>
+                    </a>
+                </li>
+            </menu>
+        </article>
+    </main>
+</body>
+</html>

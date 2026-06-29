@@ -1,0 +1,447 @@
+/* =========================================
+   VARIABLES GLOBALES
+   ========================================= */
+:root {
+  --color-sidebar:       #776F4F;
+  --color-sidebar-hover: rgba(255, 255, 255, 0.12);
+  --color-bg:            #F0EBE1;
+  --color-white:         #ffffff;
+  --color-card-border:   #d9d2c5;
+  --color-title:         #7B4A3C;
+  --color-text-main:     #2c2c2c;
+  --color-text-muted:    #888888;
+  --color-input-bg:      #faf8f5;
+
+  /* Botones de acción */
+  --color-btn-cyan:      #3ABFBF;
+  --color-btn-cyan-hover:#2fa5a5;
+  --color-btn-red:       #E05555;
+  --color-btn-red-hover: #c94444;
+  --color-btn-gray:      #e2ddd6;
+  --color-btn-gray-hover:#d0c9bf;
+
+  /* Tipografía */
+  --font-display:        'Playfair Display', serif;
+  --font-body:           'Lato', sans-serif;
+
+  /* Espacios y radios */
+  --sidebar-width:       280px;
+  --radius-card:         14px;
+  --radius-btn:          8px;
+  --transition:          0.25s ease;
+}
+
+/* =========================================
+   RESET GENERAL
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =========================================
+   BARRA LATERAL (SIDEBAR)
+   ========================================= */
+.sidebar {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  width: var(--sidebar-width);
+  min-width: 240px;
+  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+
+.sidebar header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.logo-circle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  border: 3px solid var(--color-white);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  letter-spacing: -2px;
+}
+
+.sidebar header h1 {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+
+.nav-link {
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 8px;
+  font-size: 0.93rem;
+  border-radius: var(--radius-btn);
+  transition: background var(--transition), padding-left var(--transition);
+}
+
+.nav-link i {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.nav-link:hover {
+  background-color: var(--color-sidebar-hover);
+  padding-left: 14px;
+}
+
+.nav-link.active {
+  font-weight: 700;
+  border-left: 3px solid var(--color-white);
+  padding-left: 12px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================
+   CONTENIDO PRINCIPAL (Optimizado para Centrar)
+   ========================================= */
+.main-content {
+  flex: 1;
+  padding: 50px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente si la pantalla es muy alta */
+  align-items: center;     /* Centra el bloque horizontalmente, eliminando el vacío derecho */
+}
+
+/* Contenedor que alinea simétricamente el título de la página con la tarjeta */
+.center-container {
+  width: 100%;
+  max-width: 750px; 
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--color-title);
+  letter-spacing: 0.3px;
+  text-align: left;
+}
+
+/* =========================================
+   TARJETA DEL FORMULARIO (EDIT CARD)
+   ========================================= */
+.edit-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Encabezado interno del formulario --- */
+.edit-card-header {
+  background-color: var(--color-sidebar);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-card-header h3 {
+  font-family: var(--font-body) !important;
+  font-size: 1.5rem !important; 
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.logo-small {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+/* --- Filas y Campos del Formulario --- */
+.edit-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 32px;
+}
+
+/* Contenedor especial para Nombre y Teléfono en la misma fila */
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.field-row label {
+  padding: 8px 32px;
+}
+
+/* Ajustes limpios de herencia para columnas de inputs */
+.field-row label:first-child { padding-right: 0; }
+.field-row label:last-child { padding-left: 0; }
+
+/* Texto de arriba de los inputs (Labels) */
+.edit-card label span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+}
+
+/* Inputs, Selects y Date picker unificados */
+.edit-card input[type="text"],
+.edit-card input[type="tel"],
+.edit-card input[type="email"],
+.edit-card input[type="date"],
+.edit-card select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+/* Efecto de enfoque (Focus) */
+.edit-card input:focus,
+.edit-card select:focus {
+  border-color: var(--color-sidebar);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(119, 111, 79, 0.15);
+}
+
+/* Flecha personalizada para el select */
+.edit-card select {
+  cursor: pointer;
+  appearance: none; 
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23888888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+
+
+
+/* --- Botonera Inferior (Acciones y Alineación Perfecta) --- */
+.edit-actions {
+  background-color: #f8f5f0;
+  border-top: 1px solid var(--color-card-border);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; 
+  gap: 14px;
+  margin-top: 16px;
+}
+
+
+
+
+
+
+
+/* Botón Guardar Contacto */
+.btn-update {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background var(--transition), transform var(--transition);
+  display: inline-flex;
+  align-items: center;
+  height: 44px; /* Altura idéntica simétrica */
+  box-sizing: border-box;
+}
+
+.btn-update:hover {
+  background-color: #5f5940;
+  transform: translateY(-1px);
+}
+
+/* Botón Cancelar */
+.btn-cancel {
+  background-color: var(--color-btn-gray);
+  color: var(--color-text-main);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 26px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px; /* Altura idéntica simétrica */
+  box-sizing: border-box;
+}
+
+.btn-cancel:hover {
+  background-color: var(--color-btn-gray-hover);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   RESPONSIVE (Adaptación Móvil)
+   ========================================= */
+@media (max-width: 960px) {
+  body { flex-direction: column; }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    padding: 16px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sidebar header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .logo-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .sidebar header h1 { font-size: 1.1rem; }
+
+  .main-content { padding: 24px 16px; }
+  .panel-title  { font-size: 1.5rem; }
+
+  .edit-card { max-width: 100%; }
+  .edit-card-header { padding: 18px 20px; }
+  
+  .field-row {
+    grid-template-columns: 1fr; 
+    gap: 0;
+  }
+  
+  .field-row label { padding: 12px 20px; }
+  .field-row label:first-child { padding-right: 20px; }
+  .field-row label:last-child { padding-left: 20px; }
+  .edit-card label { padding: 12px 20px; }
+  
+  .edit-actions {
+    padding: 20px;
+    flex-direction: column-reverse; 
+  }
+  
+  .btn-update, .btn-cancel {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+
+/* ==========================================================================
+   OPTIMIZACIÓN PARA NUEVOS CAMPOS SEMÁNTICOS (DATACONNECT)
+   ========================================================================== */
+
+/* --- Estilo unificado para el nuevo cuadro de texto (Dirección) --- */
+.edit-card textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+  background-color: var(--color-input-bg);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-btn);
+  padding: 12px 16px;
+  outline: none;
+  resize: vertical; /* Permite al usuario estirarlo solo hacia abajo de forma limpia */
+  transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+/* Efecto de enfoque (Focus) idéntico para el textarea */
+.edit-card textarea:focus {
+  border-color: var(--color-sidebar);
+  background-color: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(119, 111, 79, 0.15);
+}
+
+/* --- Ajuste semántico para las etiquetas ordenadas dentro de párrafos --- */
+.edit-card p.field-row {
+  margin: 0;
+}
+
+/* --- Adaptación de Espacios en Móvil para Textarea --- */
+@media (max-width: 960px) {
+  .edit-card textarea {
+    width: 100%;
+  }
+}

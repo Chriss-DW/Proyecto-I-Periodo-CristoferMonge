@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica del documento -->
+    <meta charset="UTF-8"> <!-- Para que los caracteres especiales se vean bien, como las tildes y la ñ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Esto hace que la página se vea chida en el celular -->
+    <title>DataConnect - Panel Principal</title> <!-- El título que aparece en la pestaña del navegador -->
+    
+    <!-- Aquí cargo los estilos de la página -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> <!-- Mi propio CSS, donde le pongo mi toque personal -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Los iconos chidos de Font Awesome, pa' que se vea profesional -->
+    
+    <!-- Cargo el JavaScript con las validaciones y funciones extras -->
+    <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+</head>
+<body>
+    <!-- ===== BARRA LATERAL (SIDEBAR) ===== -->
+    <!-- Esta es la barra de navegación que siempre está visible a la izquierda -->
+    <aside class="sidebar">
+        <header>
+            <strong class="logo-circle">DC</strong> <!-- El logo chiquito con las iniciales -->
+            <h1>DataConnect</h1> <!-- El nombre de la aplicación -->
+        </header>
+        <nav>
+            <!-- Menú de navegación principal -->
+            <p class="menu-label">GESTIÓN</p> <!-- Categoría del menú -->
+            
+            <!-- Enlace al panel principal (donde estamos ahora mismo) -->
+            <a href="{{ url_for('principal') }}" class="nav-link active">
+                <i class="fas fa-th-large"></i> Menú Principal <!-- Icono de cuadrícula -->
+            </a>
+            
+            <!-- Enlace para crear nuevos contactos -->
+            <a href="{{ url_for('Crear_contactos') }}" class="nav-link">
+                <i class="fas fa-user-plus"></i> Crear contactos <!-- Icono de persona con más -->
+            </a>
+            
+            <p class="menu-label">HERRAMIENTAS</p> <!-- Otra categoría -->
+            
+            <!-- Enlace a las estadísticas -->
+            <a href="{{ url_for('estadisticas') }}" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Estadísticas <!-- Icono de gráfica -->
+            </a>
+            
+            <!-- Enlace para cerrar sesión -->
+            <a href="{{ url_for('login') }}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión <!-- Icono de salida -->
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <!-- Aquí va todo lo que se muestra en la parte grande de la pantalla -->
+    <main class="main-content">
+        <!-- Cabecera del contenido -->
+        <header class="content-header">
+            <h2 class="panel-title">Panel Principal: Contactos</h2> <!-- Título que dice dónde estamos -->
+            
+            <!-- Botón para agregar nuevo contacto, bien llamativo -->
+            <a href="{{ url_for('Crear_contactos') }}" class="btn-add" style="text-decoration: none; display: inline-block; text-align: center;">
+                Agregar Nuevo Contacto <!-- Este botón nos lleva directo al formulario de creación -->
+            </a>
+        </header>
+
+        <!-- ===== BARRA DE BÚSQUEDA Y ORDENAMIENTO ===== -->
+        <!-- Aquí los usuarios pueden buscar contactos y ordenarlos -->
+        <section class="search-sort-bar">
+            <!-- Formulario de búsqueda -->
+            <form action="{{ url_for('principal') }}" method="GET" class="search-form">
+                <div class="search-input-container">
+                    <i class="fas fa-search"></i> <!-- Icono de lupa -->
+                    <input type="text" name="q" placeholder="Buscar contacto por nombre, teléfono..." value="{{ query_actual }}">
+                    <!-- El input guarda lo que el usuario escribió y lo envía con GET -->
+                    <button type="submit" style="display: none;"></button> <!-- Botón oculto para enviar el formulario -->
+                </div>
+                {% if query_actual %}
+                    <!-- Si hay una búsqueda activa, mostramos un botón para limpiarla -->
+                    <a href="{{ url_for('principal') }}" class="btn-clear-search" style="text-decoration: none; margin-left: 10px; display: inline-flex; align-items: center;">
+                        Limpiar
+                    </a>
+                {% endif %}
+            </form>
+            
+            <!-- Grupo de botones para ordenar -->
+            <div class="sort-actions-group">
+                <a href="{{ url_for('principal', ordenar='si', q=query_actual) }}" class="btn-sort-az">
+                    <i class="fas fa-sort-alpha-down"></i> Ordenar A-Z <!-- Ordena los contactos alfabéticamente -->
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== LISTA DE CONTACTOS ===== -->
+        <!-- Aquí se muestran todos los contactos en tarjetas -->
+        <section class="contacts-wrapper">
+            <!-- Encabezados de la tabla (pero en realidad son tarjetas) -->
+            <header class="table-labels">
+                <span>CONTACTO</span>
+                <span>TELÉFONO</span>
+                <span>INFORMACIÓN</span>
+                <span>ACCIONES</span>
+            </header>
+            
+            <!-- Lista de contactos -->
+            <ul class="contacts-list" style="list-style: none; padding: 0;">
+                {% if contactos %}
+                    <!-- Si hay contactos, los mostramos uno por uno -->
+                    {% for contacto in contactos %}
+                    <li>
+                        <article class="contact-card">
+                            <!-- Avatar del contacto -->
+                            <i class="fas fa-user-circle avatar"></i>
+                            
+                            <!-- Información personal: nombre, apellido y correo -->
+                            <section class="info-personal">
+                                <strong>{{ contacto.nombre }} {{ contacto.apellido }}</strong>
+                                <small>{{ contacto.correo }}</small>
+                            </section>
+                            
+                            <!-- Número de teléfono -->
+                            <section class="info-phone">
+                                +506 {{ contacto.telefono }} <!-- El +506 es el código de Costa Rica -->
+                            </section>
+                            
+                            <!-- Botones de información extra -->
+                            <section class="info-extra">
+                                <!-- Botón para ver más información del contacto -->
+                                <a href="{{ url_for('mas_informacion', id_fila=contacto.id) }}" class="btn-gray" title="Ver detalles de {{ contacto.nombre }}">
+                                    <i class="fas fa-cog"></i>
+                                </a>
+                                
+                                <!-- Botón para marcar/desmarcar como favorito -->
+                                <a href="{{ url_for('toggle_favorito', id_fila=contacto.id, origen='principal') }}" class="btn-gray" title="Alternar Favorito">
+                                    {% if contacto.favorito == 'Sí' %}
+                                        <i class="fas fa-star" style="color: #f1c40f;"></i> <!-- Estrella llena (favorito) -->
+                                    {% else %}
+                                        <i class="far fa-star"></i> <!-- Estrella vacía (no favorito) -->
+                                    {% endif %}
+                                </a>
+                            </section>
+                            
+                            <!-- Acciones: editar y eliminar -->
+                            <section class="info-actions">
+                                <!-- Botón para editar el contacto -->
+                                <a href="{{ url_for('editar_usuario', id_fila=contacto.id) }}" class="btn-cyan" title="Editar a {{ contacto.nombre }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                
+                                <!-- Botón para eliminar (abre un modal de confirmación) -->
+                                <a href="#" class="btn-red" onclick="return mostrarModalEliminar('{{ contacto.id }}');" title="Eliminar contacto">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </section>
+                        </article>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <!-- Si no hay contactos, mostramos un mensaje bonito -->
+                    <li style="text-align: center; padding: 40px; color: #776F4F;">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 15px; display: block;"></i>
+                        <strong>No hay contactos que coincidan con la búsqueda.</strong>
+                    </li>
+                {% endif %}
+            </ul>
+        </section>
+    </main>
+
+    <!-- ===== MODAL DE CONFIRMACIÓN PARA ELIMINAR ===== -->
+    <!-- Este es un popup que aparece cuando el usuario quiere eliminar un contacto -->
+    <div id="modalEliminar" class="modal-overlay">
+        <div class="modal-box">
+            <!-- Título con ícono de advertencia -->
+            <h3><i class="fas fa-exclamation-triangle" style="color: #d32f2f;"></i> Confirmar Eliminación</h3>
+            
+            <!-- Mensaje dinámico que se cambia con JavaScript -->
+            <p id="modalMensaje">¿Está seguro/a que desea eliminar al contacto? Esta acción no puede ser revertida.</p>
+            
+            <!-- Botones de acción -->
+            <div class="modal-actions">
+                <!-- Botón para cancelar y cerrar el modal -->
+                <button class="modal-btn modal-btn-cancel" onclick="cerrarModalEliminar()">Cancelar</button>
+                
+                <!-- Botón para confirmar la eliminación (el href lo pone JavaScript) -->
+                <a href="#" id="modalEliminarLink" class="modal-btn modal-btn-delete">Eliminar</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+
+/* =========================================
+   IMPORTACIÓN DE FUENTES
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@300;400;700;900&display=swap');
+ 
+ 
+/* =========================================
+   VARIABLES GLOBALES
+   ========================================= */
+:root {
+  --color-sidebar:        #776F4F;
+  --color-sidebar-dark:   #5f5940;
+  --color-sidebar-hover:  rgba(255, 255, 255, 0.12);
+  --color-bg:             #F0EBE1;
+  --color-white:          #ffffff;
+  --color-card-border:    #d9d2c5;
+  --color-title:          #7B4A3C;
+  --color-text-main:      #2c2c2c;
+  --color-text-muted:     #888888;
+  --color-field-bg:       #faf8f4;
+  --color-field-border:   #e8e2d8;
+ 
+  /* Botones de acción */
+  --color-btn-cyan:       #3ABFBF;
+  --color-btn-cyan-hover: #2fa5a5;
+  --color-btn-red:        #E05555;
+  --color-btn-red-hover:  #c94444;
+  --color-btn-gray:       #e2ddd6;
+  --color-btn-gray-hover: #d0c9bf;
+ 
+  /* Badge / estado */
+  --color-badge-bg:       #ede8df;
+  --color-badge-text:     #776F4F;
+  --color-online:         #3ABFBF;
+ 
+  /* Tipografía */
+  --font-display:         'Playfair Display', serif;
+  --font-body:            'Lato', sans-serif;
+ 
+  /* Estructura */
+  --sidebar-width:        280px;
+  --radius-card:          16px;
+  --radius-field:         10px;
+  --radius-btn:           8px;
+  --transition:           0.25s ease;
+}
+ 
+ 
+/* =========================================
+   RESET GENERAL
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  display: flex;
+  min-height: 100vh;
+}
+ 
+ 
+/* =========================================
+   BARRA LATERAL (SIDEBAR)
+   ========================================= */
+.sidebar {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  width: var(--sidebar-width);
+  min-width: 240px;
+  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+}
+ 
+/* --- Encabezado: logo + nombre --- */
+.sidebar header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+ 
+.logo-circle {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  border: 3px solid var(--color-white);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  letter-spacing: -2px;
+}
+ 
+.sidebar header h1 {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+ 
+/* --- Navegación --- */
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+ 
+.menu-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+ 
+.nav-link {
+  color: var(--color-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 8px;
+  font-size: 0.93rem;
+  border-radius: var(--radius-btn);
+  transition: background var(--transition), padding-left var(--transition);
+}
+ 
+.nav-link i {
+  width: 20px;
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+ 
+.nav-link:hover {
+  background-color: var(--color-sidebar-hover);
+  padding-left: 14px;
+}
+ 
+.nav-link.active {
+  font-weight: 700;
+  border-left: 3px solid var(--color-white);
+  padding-left: 12px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+ 
+ 
+/* =========================================
+   CONTENIDO PRINCIPAL
+   ========================================= */
+.main-content {
+  flex: 1;
+  padding: 50px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  background-color: var(--color-bg);
+}
+ 
+/* --- Encabezado del contenido --- */
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+ 
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--color-title);
+  letter-spacing: 0.3px;
+}
+ 
+/* Botón "Volver al Menú" */
+.btn-add {
+  background-color: var(--color-sidebar);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 11px 22px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background var(--transition), transform var(--transition);
+  display: inline-block;
+}
+ 
+.btn-add:hover {
+  background-color: var(--color-sidebar-dark);
+  transform: translateY(-1px);
+}
+ 
+ 
+/* =========================================
+   TARJETA DE DETALLE
+   ========================================= */
+.detail-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+ 
+ 
+/* =========================================
+   CABECERA DE LA TARJETA (Avatar + Nombre + Badge + Estrella)
+   ========================================= */
+.detail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 36px;
+  border-bottom: 1px solid var(--color-card-border);
+  background-color: #faf8f4;
+}
+ 
+/* Ícono de avatar grande */
+.detail-avatar {
+  font-size: 4.5rem;
+  color: var(--color-sidebar);
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+ 
+/* Bloque de nombre + badge */
+.detail-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+ 
+.detail-header-info h3 {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--color-text-main);
+}
+ 
+/* Badge de categoría */
+.detail-badge {
+  display: inline-block;
+  background-color: var(--color-badge-bg);
+  color: var(--color-badge-text);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--color-card-border);
+  width: fit-content;
+}
+ 
+/* Estrella de favorito */
+.detail-fav-status {
+  margin-left: auto;
+  font-size: 1.6rem;
+}
+ 
+.fav-active {
+  color: #d4a017;
+}
+ 
+.fav-inactive {
+  color: var(--color-card-border);
+}
+ 
+ 
+/* =========================================
+   GRID DE CAMPOS DE INFORMACIÓN
+   ========================================= */
+.detail-grid-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 30px 36px;
+}
+ 
+/* Campo individual */
+.detail-field {
+  background-color: var(--color-field-bg);
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius-field);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+ 
+.detail-field:hover {
+  border-color: var(--color-sidebar);
+  box-shadow: 0 2px 8px rgba(119, 111, 79, 0.1);
+}
+ 
+/* Campo de estado (ocupa las 2 columnas) */
+.status-field {
+  grid-column: 1 / -1;
+}
+ 
+/* Etiqueta del campo (ícono + texto) */
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+ 
+.field-label i {
+  color: var(--color-sidebar);
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+ 
+/* Valor del campo */
+.field-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+ 
+/* Estado de disponibilidad (con punto verde) */
+.availability-online {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-online);
+}
+ 
+.dot-online {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--color-online);
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(58, 191, 191, 0.2);
+}
+ 
+ 
+/* =========================================
+   PIE DE LA TARJETA (Botones de acción)
+   ========================================= */
+.detail-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 22px 36px;
+  border-top: 1px solid var(--color-card-border);
+  background-color: #faf8f4;
+}
+/* Base compartida para todos los botones de acción */
+.btn-gray,
+.btn-cyan,
+.btn-red {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: var(--radius-btn);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+ 
+/* Botón gris (favorito toggle) */
+.btn-gray {
+  background-color: var(--color-btn-gray);
+  color: var(--color-text-muted);
+}
+ 
+.btn-gray:hover {
+  background-color: var(--color-btn-gray-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+ 
+/* Botón cyan (editar) */
+.btn-cyan {
+  background-color: var(--color-btn-cyan);
+  color: var(--color-white);
+}
+ 
+.btn-cyan:hover {
+  background-color: var(--color-btn-cyan-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(58, 191, 191, 0.35);
+}
+ 
+/* Botón rojo (eliminar) */
+.btn-red {
+  background-color: var(--color-btn-red);
+  color: var(--color-white);
+}
+ 
+.btn-red:hover {
+  background-color: var(--color-btn-red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(224, 85, 85, 0.35);
+}
+ 
+ 
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 960px) {
+  body { flex-direction: column; }
+ 
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    padding: 16px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+ 
+  .sidebar header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+    text-align: left;
+  }
+ 
+  .logo-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+ 
+  .sidebar header h1 { font-size: 1.1rem; }
+ 
+  .main-content { padding: 24px 16px; }
+ 
+  .panel-title { font-size: 1.5rem; }
+ 
+  .detail-card-header { padding: 20px; gap: 14px; }
+ 
+  .detail-avatar { font-size: 3rem; }
+ 
+  .detail-grid-info {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 12px;
+  }
+ 
+  .status-field { grid-column: 1; }
+ 
+  .detail-card-footer { padding: 18px 20px; }
+}

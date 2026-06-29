@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- Página para crear nuevos contactos en DataConnect -->
+<html lang="es">
+<head>
+    <!-- Configuración básica: codificación, responsive y título -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Contacto - DataConnect</title>
+    <!-- Estilos CSS: propio de la página y Font Awesome para iconos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/crear_contacto.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- ============================================
+         BARRA LATERAL: Menú de navegación principal
+         ============================================ -->
+    <aside class="sidebar">
+        <!-- Logo y nombre de la aplicación -->
+        <header>
+            <strong class="logo-circle">DC</strong>
+            <h1>DataConnect</h1>
+        </header>
+        
+        <!-- Opciones del menú -->
+        <nav>
+            <p class="menu-label">GESTIÓN</p>
+            <!-- Enlace al Menú Principal -->
+            <a href="{{ url_for('principal') }}" class="nav-link">
+                <i class="fas fa-th-large"></i> Menú Principal
+            </a>
+            <!-- Enlace a Crear contactos (página actual, resaltada) -->
+            <a href="{{ url_for('Crear_contactos') }}" class="nav-link active">
+                <i class="fas fa-user-plus"></i> Crear contactos
+            </a>
+            
+            <p class="menu-label">HERRAMIENTAS</p>
+            <!-- Enlace a Estadísticas -->
+            <a href="{{ url_for('estadisticas') }}" class="nav-link">
+                <i class="fas fa-chart-bar"></i> Estadísticas
+            </a>
+            <!-- Enlace para Cerrar Sesión -->
+            <a href="{{ url_for('login') }}" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </a>
+        </nav>
+    </aside>
+    
+    <!-- ============================================
+         CONTENIDO PRINCIPAL: Formulario de creación
+         ============================================ -->
+    <main class="main-content">
+        <section class="center-container">
+            <h2 class="panel-title">Panel Principal: Crear Contactos</h2>
+            
+            <!-- Formulario: envía datos a /guardar_contacto con método POST -->
+            <!-- onsubmit: valida con JavaScript antes de enviar -->
+            <form class="edit-card" action="/guardar_contacto" method="POST" onsubmit="return validarYConfirmarCreacion();">
+                
+                <!-- Cabecera del formulario con logo -->
+                <header class="edit-card-header">
+                    <strong class="logo-small" style="background: white; color: #776F4F; padding: 5px 10px; border-radius: 50%; font-weight: bold;">DC</strong>
+                    <h3 style="color: white; margin-left: 10px; font-size: 2rem;">DataConnect</h3>
+                </header>
+                
+                <!-- Campos del formulario -->
+                <!-- Fila con dos campos: Nombre y Teléfono -->
+                <section class="field-row" style="display: flex; gap: 15px;">
+                    <label style="flex: 1;">
+                        <span>Nombre Completo</span>
+                        <input type="text" name="nombre_completo" id="nuevo_nombre" placeholder="Escriba el nombre completo" required>
+                    </label>
+                    <label style="flex: 1;">
+                        <span>Teléfono</span>
+                        <input type="tel" name="telefono" id="nuevo_telefono" placeholder="Número de teléfono" required>
+                    </label>
+                </section>
+                
+                <!-- Correo Electrónico -->
+                <label>
+                    <span>Correo Electrónico</span>
+                    <input type="email" name="correo" id="nuevo_correo" placeholder="ejemplo@gmail.com" required>
+                </label>
+                
+                <!-- Etiqueta Laboral (select desplegable) -->
+                <label>
+                    <span>Etiqueta Laboral</span>
+                    <select name="categoria" required>
+                        <option value="" disabled selected>Seleccione una etiqueta laboral</option>
+                        <option value="Familia">Familia</option>
+                        <option value="Trabajo">Trabajo</option>
+                        <option value="Amigos">Amigos</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </label>
+                
+                <!-- Dirección Domiciliaria -->
+                <label>
+                    <span>Dirección Domiciliaria</span>
+                    <input type="text" name="direccion" id="nuevo_direccion" placeholder="Provincia, Cantón, Distrito y señas particulares" required>
+                </label>
+                
+                <!-- Botones de acción: Cancelar y Guardar -->
+                <footer class="edit-actions">
+                    <a href="{{ url_for('principal') }}" class="btn-cancel" style="text-decoration: none;">Cancelar</a>
+                    <button type="submit" class="btn-update">Guardar Contacto</button>
+                </footer>
+            </form>
+        </section>
+    </main>
+    
+    <!-- Archivo JavaScript con funciones de validación -->
+    <script src="{{ url_for('static', filename='js/validaciones.js') }}"></script>
+</body>
+</html>

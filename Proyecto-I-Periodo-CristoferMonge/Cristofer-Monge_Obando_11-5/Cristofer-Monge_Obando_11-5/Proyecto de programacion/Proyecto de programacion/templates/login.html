@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DataConnect - Inicio de Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <header>
+            <div class="logo-circle">DC</div>
+            <h1>DataConnect</h1>
+        </header>
+
+        <nav>
+            <p class="menu-label">ACCESO</p>
+            <a href="{{ url_for('login') }}" class="nav-link active">
+                <i class="fas fa-sign-in-alt"></i> Inicio de Sesión
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h2 class="brand-title">DataConnect</h2>
+
+        <section class="form-card">
+            <form method="POST" action="/login">
+                
+                {% if error %}
+                    <p class="error-msg">
+                        {{ error }}
+                    </p>
+                {% endif %}
+
+                <div class="input-group">
+                    <label>CORREO ELECTRÓNICO:</label>
+                    <input type="text" name="usuario" placeholder="Escribe Tu Usuario" required>
+                </div>
+
+                <div class="input-group">
+                    <label>CONTRASEÑA:</label>
+                    <input type="password" name="contrasena" placeholder="Escribe Tu Contraseña" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Entrar</button>
+                
+                <div class="custom-hr">
+                    <span>OU</span>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
